@@ -35,7 +35,7 @@ def comp_intrest_calc():
         main_menu()
 #define a function that takes there monthly income in and what percentage of the budget they want ot allocate to everything with an inner funciton that takes in the percentages and checks if they add up to 100 if they do find the values that get allocated to everything
 def budget_allocator():
-    income = input("What is your monthly income?")
+    income = float(input("What is your monthly income?"))
     categories = {"Mortgage":0,"Transportation":0,"Groceries":0,"Utilities":0,"Savings":0}
 
     values = {"Mortgage":0,"Transportation":0,"Groceries":0,"Utilities":0,"Savings":0}
@@ -50,20 +50,24 @@ def budget_allocator():
     
     categories["Savings"] = (round(float(input("What percentage of your income do you want to allocate to Savings? please input only a number.")), 2)/100)
     
-    if categories["Mortgage"] +  categories["Transportation"] + categories["Groceries"] + categories["Utilities"] + categories["Savings"] == 100:
+    if categories["Mortgage"] +  categories["Transportation"] + categories["Groceries"] + categories["Utilities"] + categories["Savings"] == 1.0:
         values["Mortgage"] = income * categories["Mortgage"]
         values["Transportation"] = income * categories["Transportation"]
         values["Groceries"] = income * categories["Groceries"]
         values["Utilities"] = income * categories["Utilities"]
         values["Savings"] = income * categories["Savings"]
+        print("\033c", end="")
         print(f"You will have {values["Mortgage"]} allocated to your mortgage \n You will have {values["Transportation"]} allocated to your Transportation \n You will have {values["Groceries"]} allocated to your Groceries \n You will have {values["Savings"]} allocated to your Savings \n")
         t.sleep(15)
         print("\033c", end="")
         main_menu()
+    else:
+        print("\033c", end="")
+        budget_allocator()
 #define a funciton that takes in the price of the item and the discount plus an inner function that allows for extra coupons
 def sale_price():
     original = round(float(input("What is the original price of the item")), 2)
-    discount = round(float(input("What is the discount")), 2)
+    discount = (round(float(input("What is the discount")), 2)/100)
     final = 0
     def coupon(final):
         coupon = round(float(input("How many dollars off is the coupons?")), 2)
@@ -72,9 +76,10 @@ def sale_price():
     final = original - (original * discount)
     if_coupon = input("Is there a special extra coupon that you can apply? y/n").strip().lower()
     if if_coupon == "y":
-        print(coupon(final))
+        print(f"${coupon(final)} is the new price after the discount and coupon")
     else:
-        print(final)
+        print(f"${final} is the new price after the discount")
+    t.sleep(10)
     print("\033c", end="")
     main_menu()
 #define a funciton that takes in the price of the meal and the percentage they want to tip and gives them how much they should pay in total 
