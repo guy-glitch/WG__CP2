@@ -18,7 +18,7 @@ def main_menu():
     elif type == 4:
         search()
     elif type == 5:
-        exitc()
+        exitp()
     else:
         main_menu()
     print("\033c", end="")
@@ -30,7 +30,47 @@ def view():
         t.sleep(3)
     t.sleep(5)
     print("\033c", end="")
+    main_menu()
 #define the add function that adds a book to the library
 def add():
-    title = input("What is the title of the book.")
-    by = input("Who wrote the book?")
+    title = input("What is the title of the book.").strip().title()
+    by = input("Who wrote the book?").strip().title()
+    book = f"{title} by {by}"
+    library.add(book)
+    print(f"{book} added to the library")
+    print("\033c", end="")
+    main_menu()
+#define the function that removes a book from the library
+def remove():
+    title = input("What is the title of the book you want to remove?").strip().title()
+    in_library = any(title in item for item in library)
+    if in_library:
+        for book in library:
+            if title in book:
+                library.discard(book)
+                print("\033c", end="")
+                main_menu()
+    else:
+        print(f"{title} is not in the library, make sure it is spelled correctly next time")
+        print("\033c", end="")
+        main_menu()
+#define a function that allows for you to search the library
+def search():
+    title = input("What book do you want to search for?").title().strip()
+    in_library = any(title in item for item in library)
+    if in_library:
+        for book in library:
+            if title in book:
+                print(f"{book} is in the library.")
+                t.sleep(5)
+                print("\033c", end="")
+    else:
+        print(title, " is not in the library")
+    main_menu()
+#define a function that exits the program
+def exitp():
+    print("Okay! See you soon.")
+    t.sleep(2)
+    print("\033c", end="")
+    quit()
+main_menu()
