@@ -66,7 +66,7 @@ def remove():
 #define a function that allows for you to search the library
 
 def search():
-    title = input("What book do you want to search for?").title().strip()
+    title = input("What do you want to search for in the library? ").title().strip()
     in_library = any(title in item for item in library)
 
     if in_library:
@@ -77,7 +77,7 @@ def search():
                 print(f"{book} is in the library.")
                 t.sleep(5)
                 print("\033c", end="")
-
+                main_menu()
     else:
         print(title, " is not in the library")
 
