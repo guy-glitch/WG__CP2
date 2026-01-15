@@ -8,21 +8,27 @@ library = {"The Hobbit by J.R.R Tolkien", "A Wrinkle in Time by Madeleine L'Engl
 def main_menu():
     print("View 1 \nAdd 2  \nRemove 3 \nSearch 4 \nExit 5")
 
-    type = round(float(input("Press the number that is alligned with the calculator you want to use then press enter")), 2)
-    print("\033c", end="")
-    if type == 1:
-        view()
-    elif type == 2:
-        add()
-    elif type == 3:
-        remove()
-    elif type == 4:
-        search()
-    elif type == 5:
-        exitp()
+    type = input("Press the number that is alligned with the calculator you want to use then press enter? ")
+    if type.isdigit():
+        type = int(type)
+        print("\033c", end="")
+        if type == 1:
+            view()
+        elif type == 2:
+            add()
+        elif type == 3:
+            remove()
+        elif type == 4:
+            search()
+        elif type == 5:
+            exitp()
+        else:
+            main_menu()
     else:
+        print("\033c", end="")
+        print("Please input a number.")
+        t.sleep(20)
         main_menu()
-    print("\033c", end="")
 
 #define the view function
 def view():
@@ -37,6 +43,7 @@ def view():
 #define the add function that adds a book to the library
 
 def add():
+    #get the title and the author than add it to the library
     title = input("What is the title of the book.").strip().title()
     by = input("Who wrote the book?").strip().title()
     book = f"{title} by {by}"
@@ -48,7 +55,7 @@ def add():
 #define the function that removes a book from the library
 
 def remove():
-    title = input("What is the title of the book you want to remove?").strip().title()
+    title = input("What is the title of the book you want to remove? ").strip().title()
     in_library = any(title in item for item in library)
 
     if in_library:
@@ -59,7 +66,7 @@ def remove():
                 main_menu()
 
     else:
-        print(f"{title} is not in the library, make sure it is spelled correctly next time")
+        print(f"{title} is not in the library, make sure it is spelled correctly next time. ")
         print("\033c", end="")
         main_menu()
 
