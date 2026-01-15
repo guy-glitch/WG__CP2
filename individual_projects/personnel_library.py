@@ -36,6 +36,7 @@ def view():
     #print the library
     for i in library:
         print(i)
+        print("")
         t.sleep(3)
    
     print("\033c", end="")
@@ -55,13 +56,15 @@ def add():
 #define the function that removes a book from the library
 
 def remove():
-    title = input("What is the title of the book you want to remove? ").strip().title()
+    title = input("What is the title or author of the book you want to remove? ").strip().title()
     in_library = any(title in item for item in library)
 
     if in_library:
         for book in library:
             if title in book:
                 library.discard(book)
+                print(f"{book} has been removed from the library. ")
+                t.sleep(3)
                 print("\033c", end="")
                 main_menu()
 
