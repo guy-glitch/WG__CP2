@@ -8,7 +8,7 @@ library = {"The Hobbit by J.R.R Tolkien", "A Wrinkle in Time by Madeleine L'Engl
 def main_menu():
     print("View 1 \nAdd 2  \nRemove 3 \nSearch 4 \nExit 5")
 
-    type = input("Press the number that is alligned with the calculator you want to use then press enter? ")
+    type = input("Press the number that is alligned with the library function you want to use then press enter? ")
     if type.isdigit():
         type = int(type)
         print("\033c", end="")
