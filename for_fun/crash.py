@@ -1,10 +1,11 @@
 #crash
+import random
 number = 2
 while True:
     print(number)
-    number += 1
+    number += random.randint(1,67)
     print(number)
-    number *= 2
+    number *= random.randint(1,67)
     print(number)
-    number /= 4.5567
+    number /= random.randint(1,67)
     print(number)
