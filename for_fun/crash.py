@@ -6,5 +6,5 @@ while True:
     print(number)
     number *= 2
     print(number)
-    number /= 5
+    number /= 4.5567
     print(number)
