@@ -10,6 +10,7 @@ import random as r
 import time as t
 #define main menu function
 def main_menu():
+    #give the user menu options get which one they want to use, and call the relevant function
     print("\nRandom password 1 \nExit 2")
 
     type = input("Press the number that is alligned with the library function you want to use then press enter? ")
@@ -30,7 +31,7 @@ def main_menu():
 
 #define random password
 def rand_pass():
-    #inside this
+    #inside this get the length of the password from the user and get the character types they want to use using external functions. Then call the password generator function to generate and print 4 passwords.
     length = input("How many characters do you want to be in your password? ")
     print("\033c", end="")
 
@@ -53,6 +54,7 @@ def rand_pass():
 
 #define characters function
 def characters():
+    #get the character types the user want to have in their password and return a list of possible characters based on the character types they choose.
     if_lower = input("Do you want lowercase letters in your password? (y/n) ")
     if_upper = input("Do you want uppercase letters in your password? (y/n) ")
     if_numbers = input("Do you want numbers in your password? (y/n) ")
@@ -75,10 +77,11 @@ def characters():
 #define password generator function
 def password_gen(length, possible_characters):
     password = ""
-    
+    #based off the length and possible characters generate a random password and print it do this four times.
     for i in range(length):
         password += r.choice(possible_characters)
     print(f"Here is your password option: \n{password}", end="\n\n")
+#clear the terminal for aesthetics
 print("\033c", end="")
 #call main menu
 main_menu()
