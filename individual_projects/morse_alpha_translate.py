@@ -10,7 +10,7 @@ morse_code = (".-", "-...", "-.-.", "-..", ".","..-.","--.","....","..",".---","
 def menu():
 #use match to let them check if they choose to enter the morse code translator
     while True:
-        action = int(input("Do you want to translate something nto morse code? press 1 \nDo you want to translate something into english from morse code? press 2\nOr exit. press 3"))
+        action = int(input("Do you want to translate something into morse code? press 1 \nDo you want to translate something into english from morse code? press 2\nOr exit. press 3\n"))
         match action:
             case 1:
                 morse_alpha()
@@ -21,17 +21,22 @@ def menu():
 
 #define morse code to alphabet
 def morse_alpha():
-    character = original()
-    if character in morse_code:
-        print(f"{alpha_code[list.index(character)]} is {character} in english")
-        t.sleep("\033c", end="")
-        return character
+    word = []
+    character = []
+    char_amount = int(input("How many characters are you translating from? Only a number please").strip())
+    for i in range(char_amount):
+        character.append(original)
+    if character[0] in morse_code:
+        for i in range(char_amount):
+            word.append(character[i-1])
+        print(f"{''.join(word)} is {''.join(character)} in english")
     else:
         print("That is not morse code please try again, or it is not something that codes for a letter.")
         t.sleep(3)
         print("\033c", end="")
         morse_alpha()
-
+    print("\033c", end="")
+    return character
 #define the original function to get the thing they want to translate
 def original():
     translate = input("What do you want to translate, if you are doing morse code please enter one character at a time. ").strip().upper()
@@ -46,7 +51,10 @@ def alpha_morse():
     seperator = ""
     if characters[1] in alpha_code:
         morse_values = []
-        for i in len(characters):
-            morse_values.append(alpha_code[i-1])
+        for i in range(len(characters)):
+            morse_values.append(morse_code[i-1])
         morse_values = seperator.join(map(str, morse_values))
-        print
+        print(f"{''.join(morse_values)} is {word} in morse code")
+        t.sleep(5)
+        print("\033c", end="")
+menu()
