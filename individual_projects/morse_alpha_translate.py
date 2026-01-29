@@ -23,6 +23,7 @@ def morse_alpha():
         morse_alpha()
     print("\033c", end="")
     return character
+
 #define the original function to get the thing they want to translate
 def original():
     translate = input("What do you want to translate, if you are doing morse code please enter one character at a time. ").strip().upper()
@@ -57,4 +58,7 @@ def menu():
             case 3:
                 print("\033c", end="")
                 exit()
+            case _:
+                print("Input is not an option")
+                menu()
 menu()
