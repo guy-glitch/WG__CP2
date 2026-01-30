@@ -14,13 +14,14 @@ def morse_alpha():
         character.append(original())
     if character[0] in morse_code:
         for x in range(char_amount):
-            word.append(alpha_code[character[int(x)-1]])
+            word.append(alpha_code[x])
         print(f"{''.join(word)} is {''.join(character)} in english")
     else:
         print("That is not morse code please try again, or it is not something that codes for a letter.")
         t.sleep(3)
         print("\033c", end="")
         morse_alpha()
+    t.sleep(5)
     print("\033c", end="")
     return character
 
@@ -49,16 +50,20 @@ def alpha_morse():
 def menu():
 #use match to let them check if they choose to enter the morse code translator
     while True:
-        action = int(input("Do you want to translate something into morse code? press 1 \nDo you want to translate something into english from morse code? press 2\nOr exit. press 3\n"))
+        action = input("Do you want to translate something into morse code? press 1 \nDo you want to translate something into english from morse code? press 2\nOr exit. press 3\n")
         match action:
-            case 1:
+            case "1":
+                print("\033c", end="")
                 morse_alpha()
-            case 2:
+            case "2":
+                print("\033c", end="")
                 alpha_morse()
-            case 3:
+            case "3":
                 print("\033c", end="")
                 exit()
             case _:
                 print("Input is not an option")
+                t.sleep(3)
+                print("\033c", end="")
                 menu()
 menu()
