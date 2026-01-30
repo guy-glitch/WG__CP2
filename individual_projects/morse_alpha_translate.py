@@ -8,14 +8,14 @@ morse_code = ("._", "_...", "_._.", "_..", ".",".._.","__.","....","..",".___","
 #define morse code to alphabet
 def morse_alpha():
     word = []
-    character = []
-    char_amount = int(input("How many characters are you translating from? Only a number please").strip())
-    for i in range(char_amount):
-        character.append(original())
-    if character[0] in morse_code:
-        for x in range(char_amount):
-            word.append(alpha_code[x])
-        print(f"{''.join(word)} is {''.join(character)} in english")
+    character = 0
+    
+    character = original()
+    characters = character.split(" ")
+    if characters[0] in morse_code:
+        for x in range(len(characters)):
+            word.append(alpha_code[])
+        print(f"{''.join(word)} is {character} in english")
     else:
         print("That is not morse code please try again, or it is not something that codes for a letter.")
         t.sleep(3)
@@ -27,7 +27,7 @@ def morse_alpha():
 
 #define the original function to get the thing they want to translate
 def original():
-    translate = input("What do you want to translate, if you are doing morse code please enter one character at a time. ").strip().upper()
+    translate = input("What do you want to translate? Put a space in between morse code characters ").strip().upper()
     t.sleep(3)
     print("\033c", end="")
     return translate
@@ -54,10 +54,10 @@ def menu():
         match action:
             case "1":
                 print("\033c", end="")
-                morse_alpha()
+                alpha_morse()
             case "2":
                 print("\033c", end="")
-                alpha_morse()
+                morse_alpha()
             case "3":
                 print("\033c", end="")
                 exit()
