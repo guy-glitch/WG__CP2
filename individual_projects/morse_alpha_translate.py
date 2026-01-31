@@ -38,7 +38,7 @@ def alpha_morse():
             index = alpha_code.index(char)
             morse_values.append(morse_code[index])
         elif char == ' ':
-            morse_values.append('/')
+            morse_values.append(' ') # Add space for word separation
         else:
             valid = False
             break
@@ -67,7 +67,7 @@ def menu():
                 exit()
             case _:
                 print("Input is not an option")
-                t.sleep(8)
+                t.sleep(3)
                 print("\033c", end="")
-                menu()
+                continue
 menu()
