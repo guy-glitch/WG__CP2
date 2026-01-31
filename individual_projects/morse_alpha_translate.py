@@ -8,27 +8,22 @@ morse_code = ("._", "_...", "_._.", "_..", ".",".._.","__.","....","..",".___","
 #define morse code to alphabet
 def morse_alpha():
     word = []
-    character = 0
     
     character = original()
     characters = character.split(" ")
-    if characters[0] in morse_code:
+    if all(c in morse_code for c in characters):
         for x in range(len(characters)):
-            word.append(alpha_code[])
+            word.append(alpha_code[morse_code.index(characters[x])])
         print(f"{''.join(word)} is {character} in english")
     else:
         print("That is not morse code please try again, or it is not something that codes for a letter.")
-        t.sleep(3)
-        print("\033c", end="")
-        morse_alpha()
-    t.sleep(5)
+    t.sleep(8)
     print("\033c", end="")
-    return character
 
 #define the original function to get the thing they want to translate
 def original():
     translate = input("What do you want to translate? Put a space in between morse code characters ").strip().upper()
-    t.sleep(3)
+    t.sleep(8)
     print("\033c", end="")
     return translate
 
@@ -36,15 +31,24 @@ def original():
 def alpha_morse():
     word = original()
     characters = list(word)
-    seperator = ""
-    if characters[1] in alpha_code:
-        morse_values = []
-        for i in range(len(characters)):
-            morse_values.append(morse_code[i-1])
-        morse_values = seperator.join(map(str, morse_values))
-        print(f"{''.join(morse_values)} is {word} in morse code")
-        t.sleep(5)
-        print("\033c", end="")
+    morse_values = []
+    valid = True
+    for char in characters:
+        if char in alpha_code:
+            index = alpha_code.index(char)
+            morse_values.append(morse_code[index])
+        elif char == ' ':
+            morse_values.append('/')
+        else:
+            valid = False
+            break
+    if valid:
+        morse_string = ' '.join(morse_values)
+        print(f"{morse_string} is {word} in morse code")
+    else:
+        print("Invalid characters in input. Only letters and spaces allowed.")
+    t.sleep(8)
+    print("\033c", end="")
 
 #define a main menu function
 def menu():
@@ -63,7 +67,7 @@ def menu():
                 exit()
             case _:
                 print("Input is not an option")
-                t.sleep(3)
+                t.sleep(8)
                 print("\033c", end="")
                 menu()
 menu()
