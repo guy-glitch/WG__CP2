@@ -23,7 +23,7 @@ def morse_alpha():
 #define the original function to get the thing they want to translate
 def original():
     translate = input("What do you want to translate? Put a space in between morse code characters ").strip().upper()
-    t.sleep(8)
+    t.sleep(3)
     print("\033c", end="")
     return translate
 
