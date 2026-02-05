@@ -1,7 +1,7 @@
 #WG_CP2 Reading a file 
 import csv
 try:
-    with open("Notes/read_file.txt", "r") as file:
+    with open("individual_projects/Movies list.cvs", "r") as file:
         for line in file:
             print(f"Hello {line.strip()}")
         
