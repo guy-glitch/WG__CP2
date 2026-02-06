@@ -6,7 +6,7 @@ import time as t
 def main():
     while True:
         #give them there options search/get recommendations print full movie list or exit
-        print("\nTo see full list of offered movies press 1. then enter\n To get recommendations for movies press 2 then enter\n To exit press 3 then enter")
+        print("\n To see full list of offered movies press 1. then enter\n To get recommendations for movies press 2 then enter\n To exit press 3 then enter")
         action = input()
         match action:
                 case "1":
@@ -33,7 +33,7 @@ def cvs_read():
             headers = next(content)
             rows = []
             for line in content:
-                rows.append({headers[0]: line[0], headers[1]: line[1]})
+                rows.append({headers[0]: line[0], headers[1]: line[1], headers[2]: line[2], headers[3]: line[3], headers[4]: line[4], headers[5]: line[5]})
     #except file not fpound print there was an error the file can't be found
     except:
          print("For some reason no list of movies is found, please close the program and try again")
@@ -68,7 +68,7 @@ def clear_screen():
 #a function to print list prettly with good spacing
 def print_list(list):
     for i in list:
-        print(f"Title: {i['Title']} Genre: {i['Genre']} Actor: {i['Actor']} Director: {i['Director']} Rating: {i['Rating']}")
+        print(f"Title: {i['Title']}\n Genre: {i['Genre']}\n Notable Actors: {i['Notable Actors']}\n Director: {i['Director']}\n Rating: {i['Rating']}\n\n")
 #a function that checks the current list of already filtred movies and filters again
 def narrow_down(list):
         print("What are you searching for? Genre, Actor, Director, or Rating?")
@@ -96,4 +96,5 @@ def narrow_down(list):
                 clear_screen()
                 return get_recommendations(list)
 #call the main menu funciton to start
+print("Welcome to the movie recommender.")
 main()
