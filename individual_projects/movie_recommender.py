@@ -6,7 +6,7 @@ import time as t
 def main():
     while True:
         #give them there options search/get recommendations print full movie list or exit
-        print("\n To see full list of offered movies press 1. then enter\n To get recommendations for movies press 2 then enter\n To exit press 3 then enter")
+        print("\nTo see full list of offered movies press 1. then enter\n\nTo get recommendations for movies press 2 then enter\n\nTo exit press 3 then enter")
         action = input()
         match action:
                 case "1":
@@ -14,7 +14,13 @@ def main():
                     print_list(cvs_read())
                 case "2":
                     clear_screen()
-                    get_recommendations(cvs_read())
+                    updated_list = get_recommendations(cvs_read())
+                    clear_screen()
+                    if updated_list and len(updated_list) > 0:
+                        print("Here are the movies that match your criteria:")
+                        print_list(updated_list)
+                    else:
+                        print("No movies found matching your criteria.")
                 case "3":
                     clear_screen()
                     exit()
@@ -45,12 +51,12 @@ def search(list, value, key):
     result = []
     for i in list:
         
-        if i[key]==value:
+        if value in i[key]:
             result.append(i)
     return result
 #a function that gets what they are searching for after getting how many values they are searching for, and calls each parser function consecutivly inputting them into each other
 def get_recommendations(list):
-    print("How many things are you searching for? This can only be one genre, one actor, one director, and one reading at max")
+    print("How many things are you searching for? This can only be one genre, one actor, one director, and one rating, or max amount of time, and you can only search for one of each of those things. For example you can search for one genre and one actor but not two genres or two actors.")
     num = input()
     try:
         num = int(num)
@@ -59,8 +65,8 @@ def get_recommendations(list):
         t.sleep(3)
         clear_screen()
         return get_recommendations(list)
-    for i in range(num):
-        list = narrow_down(list)
+    
+    list = narrow_down(list, num)
     return list
 #a function that clears the screen
 def clear_screen():
@@ -68,33 +74,53 @@ def clear_screen():
 #a function to print list prettly with good spacing
 def print_list(list):
     for i in list:
-        print(f"Title: {i['Title']}\n Genre: {i['Genre']}\n Notable Actors: {i['Notable Actors']}\n Director: {i['Director']}\n Rating: {i['Rating']}\n\n")
+        print(f"Title: {i['Title']}\n\nGenre: {i['Genre']}\n\nNotable Actors: {i['Notable Actors']}\n\nDirector: {i['Director']}\n\nRating: {i['Rating']}\n\n")
 #a function that checks the current list of already filtred movies and filters again
-def narrow_down(list):
-        print("What are you searching for? Genre, Actor, Director, or Rating?")
+def narrow_down(list, times):
+    while times > 0:
+        print("What are you searching for? Genre press 1, Actor press 2, Director press 3, Maximum time in Minutes press 4, or Rating press 5?")
         search_for = input()
         match search_for:
-            case "Genre":
+            case "1":
                 print("What genre are you looking for?")
-                genre = input()
-                return search(list, genre, "Genre")
-            case "Actor":
+                genre = input().title()
+                list = search(list, genre, "Genre")
+                times -= 1
+            case "2":
                 print("What actor are you looking for?")
-                actor = input()
-                return search(list, actor, "Actor")
-            case "Director":
+                actor = input().title()
+                list = search(list, actor, "Notable Actors")
+                times -= 1
+            case "3":
                 print("What director are you looking for?")
-                director = input()
-                return search(list, director, "Director")
-            case "Rating":
+                director = input().title()
+                list = search(list, director, "Director")
+                times -= 1
+            case "4":
+                print("What is the maximum time in minutes you want the movie to be?")
+                max_time = input()
+                try:
+                    max_time = int(max_time)
+                except:
+                    print("Input is not an option")
+                    t.sleep(3)
+                    clear_screen()
+                    continue
+                for i in list:
+                    if int(i["Length (min)"])>int(max_time):
+                        list.remove(i)
+                times -= 1
+            case 5:
                 print("What rating are you looking for?")
-                rating = input()
-                return search(list, rating, "Rating")
+                rating = input().title()
+                list = search(list, rating, "Rating")
+                times -= 1
             case _:
                 print("Input is not an option")
                 t.sleep(3)
                 clear_screen()
-                return get_recommendations(list)
+                continue
+    return list
 #call the main menu funciton to start
 print("Welcome to the movie recommender.")
 main()
