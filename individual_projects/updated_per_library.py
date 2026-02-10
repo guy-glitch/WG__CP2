@@ -1,8 +1,9 @@
 #WG_CP1 Personnel library
+import csv
 #import time as t
 import time as t
 #library with books
-library = {"The Hobbit by J.R.R Tolkien", "A Wrinkle in Time by Madeleine L'Engle"}
+
 
 #define main menu function
 def main_menu():
@@ -15,11 +16,11 @@ def main_menu():
         match type:
             case "1":
                 print("\033c", end="")
-                ()
+                display()
             case "2":
                 print("\033c", end="")
-                ()
-            case "3":
+                add()
+            case "5":
                 print("\033c", end="")
                 exit()
             case _:
@@ -27,25 +28,35 @@ def main_menu():
                 t.sleep(3)
                 print("\033c", end="")
                 continue
-    else:
-        print("\033c", end="")
-        print("Please input a number.")
-        t.sleep(20)
-        main_menu()
+
+#define a function that displays everything in the vile
+def display():
+    exit = 1
+    while exit!="y":
+        library = view()
+        for i in library:
+            print(i)
+        exit = input("Do you want to exit. y/n")
+    return exit
 
 #define the view function
 def view():
 
-    #print the library
-    for i in library:
-        print(i)
-        print("")
-        t.sleep(3)
+    try:
+        with open("individual_projects/library.csv", mode = "r") as library:
+            content = csv.reader(library)
+            rows = []
+            for line in content:
+                rows.append(line[0])
+            return rows
+
+    except:
+        print("\033[31mThere Was an ERROR finding the library.")
    
     print("\033c", end="")
     main_menu()
-#define the add function that adds a book to the library
 
+#define the add function that adds a book to the library
 def add():
     #get the title and the author than add it to the library
     title = input("What is the title of the book.").strip().title()
