@@ -113,7 +113,7 @@ def search(library):
     else:
         print(title, " is not in the library")
 
-    main_menu()
+    main_menu(library)
 
 #define a function that exits the program
 def exitp():
