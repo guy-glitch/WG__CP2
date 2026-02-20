@@ -4,21 +4,26 @@ from file_handler import *
 from helper import *
 #a function that gets what they want to do and calls the releveant function
 def main():
-    #get there action
-    action = input("--- Document Word Count Updater ---" \
-    "               1. Update document info" \
-    "               2. View document" \
-    "               3. Add content to document" \
-    "               4. Exit" \
-    "               Enter your choice (1-4): 1")
-    #match the action
-    match action:
-        #Call the actions that they chose
-        case "1":
-
-        case "2":
-
-        case "3":
-            
-        case "4":
-            exit()
+    while True:
+        path = input("Please enter the relative path of your file with the forward slash turned into backslash thankyou. ").strip()
+        #get there action
+        action = input("--- Document Word Count Updater ---\n" 
+        "1. View document\n"
+        "2. Add content to document\n" 
+        "3. Exit\n"
+        "Enter your choice (1-3): ").strip()
+        clear_screen()
+        #match the action
+        match action:
+            #Call the actions that they chose
+            case "1":
+                read(path)
+            case "2":
+                create_input(path)
+            case "3":
+                exit()
+            case _:
+                print("Incorrect input please try again")
+                clear_screen()
+#call main
+main()
