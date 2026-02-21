@@ -5,7 +5,7 @@ from helper import *
 #a function that gets what they want to do and calls the releveant function
 def main():
     while True:
-        path = input("Please enter the relative path of your file with the forward slash turned into backslash thankyou. ").strip()
+        path = input("Please enter the relative path of your file with the forward slash turned into backslash thank you. ").strip()
         #get there action
         action = input("--- Document Word Count Updater ---\n" 
         "1. View document\n"

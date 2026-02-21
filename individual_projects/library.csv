@@ -1,7 +1,7 @@
-title,author,year,genre
-A Wrinkle in Time,by Madeleine L'Engle,1962,science fantasy 
-F,F,f,f
-The Hobbit,J.R.R Tolkien,1950,Fantasy
-Test,Person,2026
-asdf
-This was updated <attribute 'month' of 'datetime.date' objects>--<attribute 'day' of 'datetime.date' objects>--<attribute 'year' of 'datetime.date' objects>, and had the word count 5
+title, author, year,genre
+A Wrinkle in Time, by Madeleine L'Engle, 1962, science fantasy 
+F, F, f, f
+The Hobbit, J.R.R Tolkien, 1950, Fantasy
+Test, Person, 2026
+The Great Gatsby, F. Scott Fitzgerald, 1925, Novel
+To Kill a Mockingbird, Harper Lee, 1960, Fiction
