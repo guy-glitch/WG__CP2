@@ -44,11 +44,12 @@ def fractal(number):
     #create a base case
     if number == 0: return 0
     #Based off of the number orint the nested triangle
-    t.forward(100/number)
+    t.left(90)
+    t.forward(300/number)
     t.left(120)
-    t.forward(100/number)
+    t.forward(300/number)
     t.left(120)
-    t.forward(100/number)
+    t.forward(300/number)
     t.left(120)
     #return something that calls this function in returning it
     return fractal(number-1)
