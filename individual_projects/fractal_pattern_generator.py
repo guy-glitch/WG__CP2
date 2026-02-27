@@ -14,7 +14,7 @@ while True:
 
     except:
         recursions = input("How many recursions do you want tod do (1-99)? ")
-
+recursions = int(recursions)
 #get them to enter a color
 color = input("What color do you want the turtle to be? ")
 
@@ -36,21 +36,23 @@ screen.setup(1000,1000)
 t.hideturtle()
 
 #increase speed
-t.speed(1000)
-
+t.speed(0)
+base = -350
 #define a function that uses turtle to display the fractal inside of itself repeating that many times 
 def fractal(number):
 
     #create a base case
     if number == 0: return 0
-    #Based off of the number orint the nested triangle
-    t.left(90)
-    t.forward(300/number)
+    #set the turtle to a position
+    t.teleport(base, base)
+    #use a for loop base off of the number 
+    t.forward(900/((number+1)*2))
     t.left(120)
-    t.forward(300/number)
+    t.forward(900/((number+1)*2))
     t.left(120)
-    t.forward(300/number)
+    t.forward(900/((number+1)*2))
     t.left(120)
+    
     #return something that calls this function in returning it
     return fractal(number-1)
 fractal(recursions)
