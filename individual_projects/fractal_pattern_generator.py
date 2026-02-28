@@ -1,9 +1,9 @@
 #import turtle
 import turtle as t
 import time 
-
+print("Welcome to the fractal generator!")
 #Get how many times they want to nest the fractal 
-recursions = input("How many recursions do you want tod do (1-5)? ")
+recursions = input("How many recursions do you want to do (1-7)? ")
 
 while True:
     #use try and except to check if it is an integer
@@ -13,7 +13,7 @@ while True:
         break
 
     except:
-        recursions = input("How many recursions do you want tod do (1-99)? ")
+        recursions = input("How many recursions do you want tod do (1-7)? ")
 recursions = int(recursions)
 #get them to enter a color
 color = input("What color do you want the turtle to be? ")
@@ -32,6 +32,16 @@ while True:
 screen = t.Screen()
 screen.setup(1000,1000)
 
+background = input("What color do you want the background to be? ")
+while True:
+
+    try:
+        screen.bgcolor(background)
+        break
+
+    except:
+        background = input("What color do you want the background to be? ")
+
 #hide the turtle
 t.hideturtle()
 
@@ -39,22 +49,23 @@ t.hideturtle()
 t.speed(0)
 base = -350
 #define a function that uses turtle to display the fractal inside of itself repeating that many times 
-def fractal(number):
+def fractal(number, startx, starty, size):
 
     #create a base case
-    if number == 0: return 0
+    if number == 0: return
     #set the turtle to a position
-    t.teleport(base, base)
+    t.teleport(startx, starty)
     #use a for loop base off of the number 
-    t.forward(900/((number+1)*2))
+    t.forward(size)
     t.left(120)
-    t.forward(900/((number+1)*2))
+    t.forward(size)
     t.left(120)
-    t.forward(900/((number+1)*2))
+    t.forward(size)
     t.left(120)
     
     #return something that calls this function in returning it
-    return fractal(number-1)
-fractal(recursions)
-time.sleep(15)
+    fractal(number-1, startx, starty, size/2)
+    fractal(number-1, startx + size/2, starty, size/2)
+    fractal(number-1, startx + size/4, starty + size*0.436, size/2)
+fractal(recursions, base, base, 500)
 t.done()
