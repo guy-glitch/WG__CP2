@@ -1,0 +1,3 @@
+draw the original triangle 
+go halfway up on side
+turn enough that they draw to halfway up the other side and continue like normale
