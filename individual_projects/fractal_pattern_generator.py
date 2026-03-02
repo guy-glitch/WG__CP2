@@ -1,6 +1,5 @@
 #import turtle
 import turtle as t
-import time 
 print("Welcome to the fractal generator!")
 #Get how many times they want to nest the fractal 
 recursions = input("How many recursions do you want to do (1-7)? ").strip()
