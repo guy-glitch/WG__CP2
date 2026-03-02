@@ -44,6 +44,13 @@ screen.setup(1000,1000)
 #hide the turtle
 t.hideturtle()
 
+#A function that calls the function multiple times
+def poly_call(number, startx, starty, size):
+    #return something that calls this function in returning it
+    fractal(number-1, startx, starty, size/2)
+    fractal(number-1, startx + size/2, starty, size/2)
+    fractal(number-1, startx + size/4, starty + size*0.4355, size/2)
+
 #increase speed
 t.speed(0)
 base = -350
@@ -63,8 +70,7 @@ def fractal(number, startx, starty, size):
     t.left(120)
     
     #return something that calls this function in returning it
-    fractal(number-1, startx, starty, size/2)
-    fractal(number-1, startx + size/2, starty, size/2)
-    fractal(number-1, startx + size/4, starty + size*0.436, size/2)
+    poly_call(number, startx, starty, size)
+
 fractal(recursions, base, base, 500)
 t.done()
