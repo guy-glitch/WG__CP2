@@ -3,7 +3,7 @@ import turtle as t
 import time 
 print("Welcome to the fractal generator!")
 #Get how many times they want to nest the fractal 
-recursions = input("How many recursions do you want to do (1-7)? ")
+recursions = input("How many recursions do you want to do (1-7)? ").strip()
 
 while True:
     #use try and except to check if it is an integer
@@ -16,7 +16,7 @@ while True:
         recursions = input("How many recursions do you want tod do (1-7)? ")
 recursions = int(recursions)
 #get them to enter a color
-color = input("What color do you want the turtle to be? ")
+color = input("What color do you want the turtle to be? ").strip().lower()
 
 #A while loop that checks if it is possible to set the turtle to that color using try and except and if not asks them again
 while True:
@@ -30,8 +30,6 @@ while True:
 
 #Setup the screen 
 screen = t.Screen()
-screen.setup(1000,1000)
-
 background = input("What color do you want the background to be? ")
 while True:
 
@@ -41,6 +39,7 @@ while True:
 
     except:
         background = input("What color do you want the background to be? ")
+screen.setup(1000,1000)
 
 #hide the turtle
 t.hideturtle()
@@ -55,7 +54,7 @@ def fractal(number, startx, starty, size):
     if number == 0: return
     #set the turtle to a position
     t.teleport(startx, starty)
-    #use a for loop base off of the number 
+    #draw a triangle
     t.forward(size)
     t.left(120)
     t.forward(size)
