@@ -56,7 +56,7 @@ t.speed(0)
 base = -350
 #define a function that uses turtle to display the fractal inside of itself repeating that many times 
 def fractal(number, startx, starty, size):
-
+    t.tracer(0,0)
     #create a base case
     if number == 0: return
     #set the turtle to a position
@@ -73,4 +73,5 @@ def fractal(number, startx, starty, size):
     poly_call(number, startx, starty, size)
 
 fractal(recursions, base, base, 500)
+t.update
 t.done()
