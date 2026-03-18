@@ -12,4 +12,4 @@
 
 #A function that takes in what food they selected and changes the stats of their pet by that before overwriting their current stats
 
-#A function that increases their stats based off of sleep and overwrites their previous stats
+#A function that increases their stats based off of sleep or play and overwrites their previous stats
