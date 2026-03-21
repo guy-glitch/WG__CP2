@@ -4,60 +4,103 @@ from pet_control import *
 from login import *
 clear_screen()
 
-random_event = [{"cause":"Found a bone in the forest", "effect":"Your pet gains 10 happiness!", "change":"happiness", "value": 10},{"cause":"Ate its own puke", "effect":"Your pet loses 10 happiness!", "change":"happiness", "value": -10},{"cause": "Didn't want to eat", "effect":"Your pet loses 10 hunger!", "change":"hunger", "value": -10},{"cause":"Your pet aged a month", "effect":"Your pet's age has increased!", "change":"age", "value": 1}]
+random_event = [
+    {"cause":"Found a bone in the forest", "effect":"Your pet gains 10 happiness!", "change":"happiness", "value": 10},
+    {"cause":"Ate its own puke", "effect":"Your pet loses 10 happiness!", "change":"happiness", "value": -10},
+    {"cause": "Didn't want to eat", "effect":"Your pet loses 10 hunger!", "change":"hunger", "value": -10},
+    {"cause":"Your pet aged a month", "effect":"Your pet's age has increased!", "change":"age", "value": 1},
+    {"cause":"Your pet got sick", "effect":"Your pet loses 20 health!", "change":"health", "value": -20}
+]
+
+def apply_random_event(pet):
+    event = r.choice(random_event)
+    print(f"Random event: {event['cause']} {event['effect']}")
+    if event["change"] == "happiness":
+        pet.happiness = max(0, min(100, pet.happiness + event["value"]))
+    elif event["change"] == "hunger":
+        pet.hunger = max(0, min(100, pet.hunger + event["value"]))
+    elif event["change"] == "age":
+        pet.age += event["value"]
+    elif event["change"] == "health":
+        pet.health = max(0, min(100, pet.health + event["value"]))
+    pet.update_health()
 
 def start():
+    pets = []  # list of pets
     pet = create_pet()
-    print(f"Congratulations on your new pet {pet.name} the {pet.type}!")
-    main_menu(pet)
+    pets.append(pet)
+    current_pet_index = 0
+    print(f"Congratulations on your new pet {pet.name} the {pet.species}!")
+    main_menu(pets, current_pet_index)
 
 #main menu function 
-def main_menu(pet):
+def main_menu(pets, current_pet_index):
     while True:
+        pet = pets[current_pet_index]
         clear_screen()
-        action = input("Do you want to\n1 feed your pet,\n2 play with your pet,\n3 put your pet to sleep,\n4 check your pets status,\n5 save your game,\n6 load a previous game,\n7 exit the game, please input only a number. ").strip()
+        action = input(f"Do you want to\n1 feed your pet ({pet.name}),\n2 play with your pet,\n3 put your pet to sleep,\n4 check your pets status,\n5 create a new pet,\n6 switch pet,\n7 save your game,\n8 load a previous game,\n9 exit the game, please input only a number. ").strip()
         #Use case
         match action:
             
             #case 1 feed
             case "1":
-                pet = feeding(pet)
+                pet.feed()
+                apply_random_event(pet)
             
             #case 2 play
             case "2":
-                pet = sleep_play(pet, "play")
+                pet.play()
+                print("You played with your pet!")
+                apply_random_event(pet)
             
             #case 3 sleep
             case "3":
-                pet = sleep_play(pet, "sleep")
+                pet.sleep()
+                print("Your pet slept!")
+                apply_random_event(pet)
             
             #case 4 check status
             case "4":
-                print(f"Your pet's name is {pet.name}, they are a {pet.age} year old {pet.type}. Their health is at {pet.health}, their hunger is at {pet.hunger}, their happiness is at {pet.happiness}, and their energy is at {pet.energy}.")
+                pet.display_status()
+                input("Press enter to continue...")
             
-            #case 5 save
+            #case 5 create new pet
             case "5":
-                save_pet()
+                new_pet = create_pet()
+                pets.append(new_pet)
+                current_pet_index = len(pets) - 1
+                print(f"Congratulations on your new pet {new_pet.name} the {new_pet.species}!")
             
-            #case 6 load
+            #case 6 switch pet
             case "6":
-                pet = login()
-                print(f"Welcome back your pet has been changed to {pet['name']} the {pet['species']}!")
+                if len(pets) > 1:
+                    print("Your pets:")
+                    for i, p in enumerate(pets):
+                        print(f"{i+1}. {p.name} the {p.species}")
+                    choice = int(input("Which pet do you want to switch to? ")) - 1
+                    if 0 <= choice < len(pets):
+                        current_pet_index = choice
+                        print(f"Switched to {pets[current_pet_index].name}!")
+                    else:
+                        print("Invalid choice.")
+                else:
+                    print("You only have one pet.")
             
-            #case 7 exit
+            #case 7 save
             case "7":
+                save_pet(pet)
+            
+            #case 8 load
+            case "8":
+                loaded_pet = login()
+                pets.append(loaded_pet)
+                current_pet_index = len(pets) - 1
+                print(f"Welcome back your pet {loaded_pet.name} the {loaded_pet.species}!")
+            
+            #case 9 exit
+            case "9":
                 exit()
             case _:
                 print("That input was not an option please try again")
-        event = r.choice(random_event)
-        print(f"Random event: {event['cause']} {event['effect']}")
-        if event["change"] == "happiness":
-            pet.happiness += event["value"]
-        elif event["change"] == "hunger":
-            pet.hunger += event["value"]
-        elif event["change"] == "age":
-            pet.age += event["value"]
-        elif event["change"] == "health":
-            pet.health += event["value"]
 #call main menu
 start()

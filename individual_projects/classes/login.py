@@ -7,7 +7,7 @@ def save_pet(pet):
         reader = csv.reader(file)
         username = None
         for row in reader:
-            if row and row[1] == str(pet["number"]):
+            if row and row[1] == str(pet.num):
                 username = row[0]
                 break
     if username:
@@ -18,24 +18,31 @@ def save_pet(pet):
 #login function that takes in the username and uses the exist function to check if that username exists in the users csv then gets the pet number from the csv for that username and sets pet to the pet with that number in the pet status csv
 def login():
     username = input("Please enter your username: ").strip()
-    if exists("users.csv", username):
-        with open("users.csv", mode="r", newline="") as file:
+    if exists("individual_projects//classes//users.csv", username):
+        with open("individual_projects//classes//users.csv", mode="r", newline="") as file:
             reader = csv.reader(file)
             for row in reader:
                 if row and row[0] == username:
                     pet_num = row[1]
                     break
         with open("individual_projects//classes//pet_status.csv", mode="r", newline="") as file:
-            reader = csv.DictReader(file, fieldnames=["number", "name","type","age","health","hunger","happiness","energy"])
+            reader = csv.DictReader(file)
             for row in reader:
-                if row and row["number"] == pet_num:
-                    pet = row
-                    pet["number"] = int(pet["number"])
-                    pet["age"] = int(pet["age"])
-                    pet["health"] = float(pet["health"])
-                    pet["hunger"] = float(pet["hunger"])
-                    pet["happiness"] = float(pet["happiness"])
-                    pet["energy"] = float(pet["energy"])
+                if row and row.get("number") == pet_num:
+                    from pet_control import Pet
+                    pet = Pet(
+                        int(row["number"]),
+                        row["name"],
+                        row["species"],
+                        int(row["age"]),
+                        float(row["health"]),
+                        float(row["hunger"]),
+                        float(row["happiness"]),
+                        float(row["energy"]),
+                        int(row.get("time", 0)),
+                        int(row.get("level", 1)),
+                        row.get("skills", "").split(",") if row.get("skills") else []
+                    )
                     break
         return pet
     else:
@@ -45,17 +52,31 @@ def login():
 #A function that takes a new username and adds it to the users csv along with their pets number.
 def create_account(pet):
     username = input("Please input the username you would like to use: ").strip()
-    if exists("users.csv", username):
+    if exists("individual_projects//classes//users.csv", username):
         print("That username is already taken. Please try again.")
         return create_account(pet)
-    else:
-        with open("users.csv", mode="a", newline="") as file:
-            writer = csv.writer(file)
-            writer.writerow([username, pet["number"]])
-        print("Account created successfully!")
-        return pet
+
+    # Guarantee file exists and has header row
+    users_path = "individual_projects//classes//users.csv"
+    try:
+        with open(users_path, mode="r", newline="") as f:
+            content = f.read()
+    except FileNotFoundError:
+        with open(users_path, mode="w", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow(["name", "pet_num"])
+
+    # Append the account row on a new line
+    with open(users_path, mode="a", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerow([username, pet.num])
+
+    print("Account created successfully!")
+    return pet
+
 #define a function that checks if a username exists in a csv (first column)
 def exists(location, search):
+
     try:
         with open(location, mode="r", newline="") as file:
             reader = csv.reader(file)
@@ -63,8 +84,10 @@ def exists(location, search):
                 # skip empty lines
                 if row and row[0] == search:
                     return True
+
     except FileNotFoundError:
         print("file does not exist.")
+
     except Exception:
         # fallback for unexpected errors
         print("error reading file")
