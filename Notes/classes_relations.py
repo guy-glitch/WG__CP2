@@ -1,7 +1,5 @@
-
-
- #Inheritance is a class where the relation ship is a
- #parent class
+#Inheritance is a class where the relation ship is a
+#parent class
 class Vehicle:
      def __init__(self, model, brand):
          self.brand = brand

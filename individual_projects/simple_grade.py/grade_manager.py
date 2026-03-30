@@ -66,4 +66,3 @@ class Student:
     #A function that sets a grade for that student
     def set_grade(self, grade):
         self.grade = grade
-    #A function that 
