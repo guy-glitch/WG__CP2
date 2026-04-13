@@ -1,48 +1,51 @@
 #import turtle
 import turtle as t
-print("Welcome to the fractal generator!")
-#Get how many times they want to nest the fractal 
-recursions = input("How many recursions do you want to do (1-7)? ").strip()
+def fractal_main():
+    print("Welcome to the fractal generator!")
+    #Get how many times they want to nest the fractal 
+    recursions = input("How many recursions do you want to do (1-7)? ").strip()
 
-while True:
-    #use try and except to check if it is an integer
+    while True:
+        #use try and except to check if it is an integer
 
-    try:
-        recursions = int(recursions)
-        break
+        try:
+            recursions = int(recursions)
+            break
 
-    except:
-        recursions = input("How many recursions do you want tod do (1-7)? ")
-recursions = int(recursions)
-#get them to enter a color
-color = input("What color do you want the turtle to be? ").strip().lower()
+        except:
+            recursions = input("How many recursions do you want tod do (1-7)? ")
+    recursions = int(recursions)
+    #get them to enter a color
+    color = input("What color do you want the turtle to be? ").strip().lower()
 
-#A while loop that checks if it is possible to set the turtle to that color using try and except and if not asks them again
-while True:
+    #A while loop that checks if it is possible to set the turtle to that color using try and except and if not asks them again
+    while True:
 
-    try:
-        t.color(color)
-        break
+        try:
+            t.color(color)
+            break
 
-    except:
-        color = input("What color do you want the turtle to be? ")
+        except:
+            color = input("What color do you want the turtle to be? ")
 
-#Setup the screen 
-screen = t.Screen()
-background = input("What color do you want the background to be? ")
-while True:
+    #Setup the screen 
+    screen = t.Screen()
+    background = input("What color do you want the background to be? ")
+    while True:
 
-    try:
-        screen.bgcolor(background)
-        break
+        try:
+            screen.bgcolor(background)
+            break
 
-    except:
-        background = input("What color do you want the background to be? ")
-screen.setup(1000,1000)
+        except:
+            background = input("What color do you want the background to be? ")
+    screen.setup(1000,1000)
 
-#hide the turtle
-t.hideturtle()
-
+    #hide the turtle
+    t.hideturtle()
+    fractal(recursions, base, base, 500)
+    t.update
+    t.done()
 #A function that calls the function multiple times
 def poly_call(number, startx, starty, size):
     #return something that calls this function in returning it
@@ -70,7 +73,3 @@ def fractal(number, startx, starty, size):
     
     #return something that calls this function in returning it
     poly_call(number, startx, starty, size)
-
-fractal(recursions, base, base, 500)
-t.update
-t.done()

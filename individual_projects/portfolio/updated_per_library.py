@@ -5,23 +5,24 @@ import csv
 import time as t
 #define clear screen function
 def clear_screen():
-     graphics.show("\033c", end="")
-#library with books
-try:
-    with open("individual_projects/library.csv", mode = "r") as library:
-        content = csv.DictReader(library)
-        headers = content.fieldnames
-        library = []
-        for line in content:
-           library.append({headers[0]: line[headers[0]], headers[1]: line[headers[1]], headers[2]: line[headers[2]], headers[3]: line[headers[3]]})
+      
+    #library with books
+    try:
+        with open("individual_projects/library.csv", mode = "r") as library:
+            content = csv.DictReader(library)
+            headers = content.fieldnames
+            library = []
+            for line in content:
+                library.append({headers[0]: line[headers[0]], headers[1]: line[headers[1]], headers[2]: line[headers[2]], headers[3]: line[headers[3]]})
 
-except:
-    graphics.show("The library is having trouble loading please close and try again.")
-    exit()
+    except:
+        graphics.show("The library is having trouble loading please close and try again.")
+        exit()
 
 def save_library(library):
     try:
         with open("individual_projects/library.csv", mode="w", newline='') as f:
+            headers = ["Title", "Author", "Year", "Genre"]
             writer = csv.DictWriter(f, fieldnames=headers)
             writer.writeheader()
             for item in library:
@@ -37,24 +38,24 @@ def main_menu(library):
         type =  graphics.inputs("Press the number that is alligned with the library function you want to use then press enter? ")        
         match type:
             case "1":
-                graphics.show("\033c", end="")
+                 
                 display(library)
             case "2":
-                graphics.show("\033c", end="")
+                 
                 add(library)
             case "3":
-                graphics.show("\033c", end="")
+                 
                 remove(library)
             case "4":
-                graphics.show("\033c", end="")
+                 
                 search(library)
             case "5":
-                graphics.show("\033c", end="")
+                 
                 exit()
             case _:
                 graphics.show(" graphics.inputs is not an option")
                 t.sleep(3)
-                graphics.show("\033c", end="")
+                 
                 continue
 
 #define a function that displays everything in the vile
@@ -86,7 +87,7 @@ def add(library):
     library.append(book)
     save_library(library)
     graphics.show(f"{book} added to the library")
-    graphics.show("\033c", end="")
+     
     main_menu(library)
 
 #define the function that removes a book from the library
@@ -122,10 +123,9 @@ def remove(library):
     # multiple matches: show numbered list
     graphics.show("Multiple matches found:")
     for idx, book in enumerate(matches, 1):
-         graphics.show(f"{idx}:", end=" ")
+        graphics.show(f"{idx}:", end=" ")
         for k, v in book.items():
              graphics.show(f"{k}:{v}", end=" ")
-         graphics.show()
 
     choice =  graphics.inputs("Enter the number of the item to remove (or 'all' to remove all): ").strip().lower()
     if choice == 'all':
@@ -183,7 +183,5 @@ def exitp():
     graphics.show("Okay! See you soon.")
 
     t.sleep(2)
-    graphics.show("\033c", end="")
+     
     quit()
-
-main_menu(library)

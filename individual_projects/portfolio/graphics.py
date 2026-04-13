@@ -89,8 +89,8 @@ class Menu:
         #show window
         while True:
             root=tkinter.Tk()
-            root.title('Personal Finance')
-            root.configure(background='black')
+            root.title('Personal Portfolio')
+            root.configure(background='red')
             root.minsize(500,500)
             root.maxsize(1000,1000)
             root.geometry('700x700+1300+500')

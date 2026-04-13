@@ -1,6 +1,7 @@
 #WG_CP2 morse code translator
 #import time as t and random as r
 import time as t
+import graphics
 #a tuple of all the alphabet letters
 alpha_code = ("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
 #a tuple of all the morse code letters
@@ -14,17 +15,15 @@ def morse_alpha():
     if all(c in morse_code for c in characters):
         for x in range(len(characters)):
             word.append(alpha_code[morse_code.index(characters[x])])
-        print(f"{''.join(word)} is {character} in english")
+        graphics.show(f"{''.join(word)} is {character} in english")
     else:
-        print("That is not morse code please try again, or it is not something that codes for a letter.")
+        graphics.show("That is not morse code please try again, or it is not something that codes for a letter.")
     t.sleep(8)
-    print("\033c", end="")
 
 #define the original function to get the thing they want to translate
 def original():
-    translate = input("What do you want to translate? Put a space in between morse code characters ").strip().upper()
+    translate = graphics.inputs("What do you want to translate? Put a space in between morse code characters ").strip().upper()
     t.sleep(3)
-    print("\033c", end="")
     return translate
 
 #define the alphabet to code
@@ -44,30 +43,29 @@ def alpha_morse():
             break
     if valid:
         morse_string = ' '.join(morse_values)
-        print(f"{morse_string} is {word} in morse code")
+        graphics.show(f"{morse_string} is {word} in morse code")
     else:
-        print("Invalid characters in input. Only letters and spaces allowed.")
+        graphics.show("Invalid characters in graphics.inputs. Only letters and spaces allowed.")
     t.sleep(8)
-    print("\033c", end="")
 
 #define a main menu function
 def menu():
 #use match to let them check if they choose to enter the morse code translator
     while True:
-        action = input("Do you want to translate something into morse code? press 1 \nDo you want to translate something into english from morse code? press 2\nOr exit. press 3\n")
+        action = graphics.inputs("Do you want to translate something into morse code? press 1 \nDo you want to translate something into english from morse code? press 2\nOr exit. press 3\n")
         match action:
             case "1":
-                print("\033c", end="")
+        
                 alpha_morse()
             case "2":
-                print("\033c", end="")
+        
                 morse_alpha()
             case "3":
-                print("\033c", end="")
+        
                 exit()
             case _:
-                print("Input is not an option")
+                graphics.show("graphics.inputs is not an option")
                 t.sleep(3)
-                print("\033c", end="")
+        
                 continue
 menu()
