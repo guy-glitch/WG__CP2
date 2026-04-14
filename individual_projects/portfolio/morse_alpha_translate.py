@@ -46,7 +46,7 @@ def alpha_morse():
         graphics.show(f"{morse_string} is {word} in morse code")
     else:
         graphics.show("Invalid characters in graphics.inputs. Only letters and spaces allowed.")
-    t.sleep(8)
+    return 0
 
 #define a main menu function
 def menu():
@@ -61,11 +61,10 @@ def menu():
         
                 morse_alpha()
             case "3":
-        
-                exit()
+                break
             case _:
                 graphics.show("graphics.inputs is not an option")
                 t.sleep(3)
         
                 continue
-menu()
+        return 0

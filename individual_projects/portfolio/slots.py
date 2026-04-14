@@ -11,10 +11,10 @@ def spin_grid():
 
 
 
-def inputgrid(grid):
+def print_grid(grid):
     graphics.show("*************")
     for row in grid:
-        graphics.show("  ", " | ".join(row))
+        graphics.show(" " + " | ".join(row))
     graphics.show("*************")
 
 
@@ -77,7 +77,7 @@ def not_main():
         graphics.show("\nSpinning...\n")
         t.sleep(1)
         grid = spin_grid()
-        graphics.show_grid(grid)
+        print_grid(grid)
 
         payout = get_payout(grid, bet)
         t.sleep(1)
@@ -129,4 +129,4 @@ def slots_main():
             return int(money)
              
         else:
-            continue            
+            return 0         
